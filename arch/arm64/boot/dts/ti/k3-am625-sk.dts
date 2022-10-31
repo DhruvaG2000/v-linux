@@ -179,9 +179,15 @@
 &sdhci1 {
 	vmmc-supply = <&vdd_mmc1>;
 	vqmmc-supply = <&vdd_sd_dv>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&main_mmc1_pins_default>;
+	ti,driver-strength-ohm = <50>;
+	disable-wp;
+	no-1-8-v;
 };
 
 &cpsw3g {
+	status = "disabled";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_rgmii1_pins_default
 		     &main_rgmii2_pins_default>;
@@ -209,7 +215,7 @@
 };
 
 &ospi0 {
-	status = "okay";
+	status = "disabled";
 	pinctrl-names = "default";
 	pinctrl-0 = <&ospi0_pins_default>;
 
