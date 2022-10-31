@@ -1814,10 +1814,7 @@ static int cqspi_resume(struct device *dev)
 	return 0;
 }
 
-static const struct dev_pm_ops cqspi__dev_pm_ops = {
-	.suspend = cqspi_suspend,
-	.resume = cqspi_resume,
-};
+static SIMPLE_DEV_PM_OPS(cqspi__dev_pm_ops, cqspi_suspend, cqspi_resume);
 
 #define CQSPI_DEV_PM_OPS	(&cqspi__dev_pm_ops)
 #else
