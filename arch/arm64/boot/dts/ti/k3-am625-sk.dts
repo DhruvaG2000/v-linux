@@ -416,7 +416,7 @@
 };
 
 &ospi0 {
-	status = "disabled";
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&ospi0_pins_default>;
 
