@@ -1,0 +1,30 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- defconfig
+
+    - name: Install dependencies
+      run: sudo apt-get install -y libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
+    - name: build Image
+      run: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image -j16
+
+    - name: build DTB
+      run: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs -j16
+
+    - name: build modules
+      run: make -j15 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules
