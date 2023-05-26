@@ -27,6 +27,15 @@
 		stdout-path = "serial2:115200n8";
 	};
 
+	opp-table {
+		/* Add 1.4GHz OPP for am62a-sk board. Requires VDD_CORE to be at 0.85V */
+		opp-1400000000 {
+			opp-hz = /bits/ 64 <1400000000>;
+			opp-supported-hw = <0x01 0x0004>;
+			clock-latency-ns = <6000000>;
+		};
+	};
+
 	memory@80000000 {
 		device_type = "memory";
 		/* 4G RAM */
