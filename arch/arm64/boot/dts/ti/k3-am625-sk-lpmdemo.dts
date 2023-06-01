@@ -47,6 +47,6 @@
 	/delete-property/ clocks;
 };
 
-&cbass_mcu {
+&mcu_uart0 {
 	status = "disabled";
 };

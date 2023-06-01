@@ -12,6 +12,7 @@
 #include <linux/module.h>
 #include <linux/of_device.h>
 #include <linux/of_reserved_mem.h>
+#include <linux/pm_wakeup.h>
 #include <linux/omap-mailbox.h>
 #include <linux/platform_device.h>
 #include <linux/remoteproc.h>
@@ -732,6 +733,9 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
 	int ret = 0;
 	int ret1;
 
+	printk ("mydbg: %s", __func__);
+	device_init_wakeup(dev, true);
+
 	data = of_device_get_match_data(dev);
 	if (!data)
 		return -ENODEV;
@@ -900,9 +904,13 @@ static int __maybe_unused k3_m4_rproc_suspend(struct device *dev)
 	struct platform_device *pdev = to_platform_device(dev);
 	struct k3_m4_rproc *kproc = platform_get_drvdata(pdev);
 
-	rproc_shutdown(kproc->rproc);
+	if (!device_may_wakeup(dev)) {
+		printk("%s : wake irq DISABLED....", __func__);
+		rproc_shutdown(kproc->rproc);
 
-	kproc->rproc->state = RPROC_SUSPENDED;
+		kproc->rproc->state = RPROC_SUSPENDED;
+	} else
+		printk("%s : wakeup enabled....", __func__);
 
 	return 0;
 }

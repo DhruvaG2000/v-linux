@@ -3572,6 +3572,14 @@ static int __maybe_unused ti_sci_prepare_system_suspend(struct ti_sci_info *info
 {
 #if IS_ENABLED(CONFIG_SUSPEND)
 	u8 mode;
+	u8 mcu_state = 0;
+	u8 unused;
+	ti_sci_get_device_state(&info->handle, 8, NULL, NULL, &mcu_state, &unused);
+	printk("mydebug %s : mcu_state 8 = %d, %d", __func__, mcu_state, unused);
+	ti_sci_get_device_state(&info->handle, 7, NULL, NULL, &mcu_state, &unused);
+	printk("mydebug %s : mcu_state 7 = %d, %d", __func__, mcu_state, unused);
+	ti_sci_get_device_state(&info->handle, 9, NULL, NULL, &mcu_state, &unused);
+	printk("mydebug %s : mcu_state 9 = %d, %d", __func__, mcu_state, unused);
 
 	/* Map and validate the target Linux suspend state to TISCI LPM. */
 	switch (pm_suspend_target_state) {
@@ -3582,7 +3590,15 @@ static int __maybe_unused ti_sci_prepare_system_suspend(struct ti_sci_info *info
 		/* S2MEM can't continue if the LPM firmware is not loaded. */
 		if (!info->lpm_firmware_loaded)
 			return -EINVAL;
-		mode = TISCI_MSG_VALUE_SLEEP_MODE_DEEP_SLEEP;
+		if (mcu_state == 0) {
+			printk("%s : Entered deep sleep", __func__);
+			mode = TISCI_MSG_VALUE_SLEEP_MODE_DEEP_SLEEP;
+		}
+		else
+		{
+			printk("%s : Entered MCU ONLY sleep", __func__);
+			mode = TISCI_MSG_VALUE_SLEEP_MODE_MCU_ONLY;
+		}
 		break;
 	default:
 		/*
@@ -3627,7 +3643,11 @@ static int __maybe_unused ti_sci_resume(struct device *dev)
 	return 0;
 }
 
-static SIMPLE_DEV_PM_OPS(ti_sci_pm_ops, ti_sci_suspend, ti_sci_resume);
+/* static SIMPLE_DEV_PM_OPS(ti_sci_pm_ops, ti_sci_suspend, ti_sci_resume); */
+static const struct dev_pm_ops ti_sci_pm_ops = {
+	SET_LATE_SYSTEM_SLEEP_PM_OPS(ti_sci_suspend,
+				     ti_sci_resume)
+};
 
 static int tisci_pm_handler(struct notifier_block *nb, unsigned long pm_event,
 			    void *unused)
