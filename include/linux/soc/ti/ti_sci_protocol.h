@@ -196,6 +196,20 @@ struct ti_sci_clk_ops {
 };
 
 /**
+ * struct ti_sci_pm_ops - Low Power Mode (LPM) control operations
+ * @prepare_sleep: Prepare to enter low power mode
+ *		- mode: Low power mode to enter.
+ *		- ctx_lo: Low 32-bits of physical address for context save.
+ *		- ctx_hi: High 32-bits of physical address for context save.
+ *		- ctx_lo: 'true' if frequency change is desired.
+ *		- debug_flags: JTAG control flags for debug.
+ */
+struct ti_sci_pm_ops {
+	int (*prepare_sleep)(const struct ti_sci_handle *handle, u8 mode,
+			     u32 ctx_lo, u32 ctx_hi, u32 flags);
+};
+
+/**
  * struct ti_sci_resource_desc - Description of TI SCI resource instance range.
  * @start:	Start index of the first resource range.
  * @num:	Number of resources in the first range.
@@ -539,6 +553,7 @@ struct ti_sci_ops {
 	struct ti_sci_core_ops core_ops;
 	struct ti_sci_dev_ops dev_ops;
 	struct ti_sci_clk_ops clk_ops;
+	struct ti_sci_pm_ops pm_ops;
 	struct ti_sci_rm_core_ops rm_core_ops;
 	struct ti_sci_rm_irq_ops rm_irq_ops;
 	struct ti_sci_rm_ringacc_ops rm_ring_ops;
