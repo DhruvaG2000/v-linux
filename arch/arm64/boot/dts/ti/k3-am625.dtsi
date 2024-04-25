@@ -49,6 +49,7 @@
 			d-cache-sets = <128>;
 			next-level-cache = <&L2_0>;
 			operating-points-v2 = <&a53_opp_table>;
+			cpu-idle-states = <&CPU_SLEEP_0>;
 			clocks = <&k3_clks 135 0>;
 			#cooling-cells = <2>;
 		};
@@ -66,6 +67,7 @@
 			d-cache-sets = <128>;
 			next-level-cache = <&L2_0>;
 			operating-points-v2 = <&a53_opp_table>;
+			cpu-idle-states = <&CPU_SLEEP_0>;
 			clocks = <&k3_clks 136 0>;
 			#cooling-cells = <2>;
 		};
@@ -83,6 +85,7 @@
 			d-cache-sets = <128>;
 			next-level-cache = <&L2_0>;
 			operating-points-v2 = <&a53_opp_table>;
+			cpu-idle-states = <&CPU_SLEEP_0>;
 			clocks = <&k3_clks 137 0>;
 			#cooling-cells = <2>;
 		};
@@ -100,6 +103,7 @@
 			d-cache-sets = <128>;
 			next-level-cache = <&L2_0>;
 			operating-points-v2 = <&a53_opp_table>;
+			cpu-idle-states = <&CPU_SLEEP_0>;
 			clocks = <&k3_clks 138 0>;
 			#cooling-cells = <2>;
 		};
@@ -155,5 +159,19 @@
 		cache-size = <0x80000>;
 		cache-line-size = <64>;
 		cache-sets = <512>;
+	};
+
+	idle-states {
+		entry-method = "psci";
+
+		CPU_SLEEP_0: cpu-sleep-0 {
+			compatible = "arm,idle-state";
+			idle-state-name = "PROTO1";
+			arm,psci-suspend-param = <0x0>;
+			local-timer-stop;
+			entry-latency-us = <300>;
+			exit-latency-us = <600>;
+			min-residency-us = <10000>;
+		};
 	};
 };
