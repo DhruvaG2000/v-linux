@@ -102,6 +102,7 @@
 		};
 
 		inta_main_dmss: interrupt-controller@48000000 {
+		status = "disabled";
 			compatible = "ti,sci-inta";
 			reg = <0x00 0x48000000 0x00 0x100000>;
 			#interrupt-cells = <0>;
@@ -115,6 +116,7 @@
 		};
 
 		main_bcdma: dma-controller@485c0100 {
+		status = "disabled";
 			compatible = "ti,am64-dmss-bcdma";
 			reg = <0x00 0x485c0100 0x00 0x100>,
 			      <0x00 0x4c000000 0x00 0x20000>,
@@ -138,6 +140,7 @@
 		};
 
 		main_pktdma: dma-controller@485c0000 {
+		status = "disabled";
 			compatible = "ti,am64-dmss-pktdma";
 			reg = <0x00 0x485c0000 0x00 0x100>,
 			      <0x00 0x4a800000 0x00 0x20000>,
@@ -702,6 +705,7 @@
 	};
 
 	cpsw3g: ethernet@8000000 {
+		status = "disabled";
 		compatible = "ti,am642-cpsw-nuss";
 		#address-cells = <2>;
 		#size-cells = <2>;
