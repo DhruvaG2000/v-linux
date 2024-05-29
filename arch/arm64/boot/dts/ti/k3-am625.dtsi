@@ -131,9 +131,9 @@
 	  idle-state-name = "PROTO1";
 	     arm,psci-suspend-param = <0x0>;
 	     local-timer-stop;
-	     entry-latency-us = <30>;
-	     exit-latency-us = <100>;
-	     min-residency-us = <1000>;
+	     entry-latency-us = <6000>;
+	     exit-latency-us = <8000>;
+	     min-residency-us = <3000>;
 		};
 	};
 };
