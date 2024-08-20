@@ -466,16 +466,17 @@
 
 &usbss0 {
 	bootph-all;
-	status = "okay";
+	status = "disabled";
 	ti,vbus-divider;
 };
 
 &usbss1 {
-	status = "okay";
+	status = "disabled";
 	ti,vbus-divider;
 };
 
 &usb0 {
+	status = "disabled";
 	bootph-all;
 	usb-role-switch;
 
@@ -487,6 +488,7 @@
 };
 
 &usb1 {
+	status = "disabled";
 	dr_mode = "host";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_usb1_pins_default>;
