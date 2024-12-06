@@ -30,6 +30,12 @@
 		psci: psci {
 			compatible = "arm,psci-1.0";
 			method = "smc";
+
+		cpu_pd0: power-domain-cpu0 {
+			#power-domain-cells = <0>;
+			domain-idle-states = <&cluster_ret>;
+		};
+
 		};
 	};
 

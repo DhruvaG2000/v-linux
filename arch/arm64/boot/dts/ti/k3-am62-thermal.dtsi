@@ -30,9 +30,7 @@ thermal_zones: thermal-zones {
 				trip = <&main0_alert>;
 				cooling-device =
 					<&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+					<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 			};
 		};
 	};
@@ -61,9 +59,7 @@ thermal_zones: thermal-zones {
 				trip = <&main1_alert>;
 				cooling-device =
 					<&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+					<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 			};
 		};
 	};
